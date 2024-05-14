@@ -1,32 +1,22 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
+import { Component, inject } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
-import { Course } from './model/course';
 import { CoursesService } from './services/courses.service';
-import { HttpClientModule } from '@angular/common/http';
-import { first, Observable, tap } from 'rxjs';
 
 @Component({
   selector: 'app-courses',
   standalone: true,
-  imports: [MatTableModule, MatCardModule, MatToolbarModule, HttpClientModule],
+  imports: [MatTableModule, MatCardModule, MatToolbarModule, HttpClientModule, MatProgressSpinnerModule],
   templateUrl: './courses.component.html',
   styleUrl: './courses.component.scss'
 })
 
-export default class CoursesComponent implements OnInit {
-  courses: Observable<Course[]>
-  private readonly _coursesSVC = inject(CoursesService)
+export default class CoursesComponent {
   displayedColumns = ['name', 'category']
-
-  constructor() {
-    this.courses = this._coursesSVC.findAll()
-  }
-
-  ngOnInit(): void {
-
-  }
-
+  private readonly _coursesSVC = inject(CoursesService)
+  public courses = this._coursesSVC.courses
 }
