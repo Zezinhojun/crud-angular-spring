@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
-import { inject, Injectable } from '@angular/core';
-import { toSignal } from '@angular/core/rxjs-interop';
-import { first } from 'rxjs';
+import { inject, Injectable, signal } from '@angular/core';
+import { Observable, take, tap } from 'rxjs';
 
 import { Course } from '../model/course';
 
@@ -10,7 +9,18 @@ import { Course } from '../model/course';
 })
 export class CoursesService {
   private _http = inject(HttpClient)
-  private readonly _API = './../../../assets/courses.json'
-  private courses$ = this._http.get<Course[]>(this._API).pipe(first())
-  public courses = toSignal(this.courses$, { initialValue: [] as Course[] })
+  private readonly _API = 'api/courses'
+  public courses = signal<Course[]>([] as Course[])
+
+  getAllCourse() {
+    return this._http
+      .get<Course[]>(this._API)
+      .pipe(tap(res => this.courses.set(res)))
+  }
+
+  save(course: Course): Observable<Course> {
+    return this._http
+      .post<Course>(this._API, course)
+      .pipe(take(1))
+  }
 }
