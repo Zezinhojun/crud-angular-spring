@@ -1,6 +1,6 @@
 import { Location } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import { ReactiveFormsModule, UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
+import { NonNullableFormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -31,16 +31,12 @@ export default class CoursesFormComponent {
   private _snackBar = inject(MatSnackBar)
   private location = inject(Location)
   public courses = this._coursesSvc.courses
-  form: UntypedFormGroup;
+  private readonly formBuilder = inject(NonNullableFormBuilder)
 
-  constructor(
-    private formBuilder: UntypedFormBuilder,
-  ) {
-    this.form = this.formBuilder.group({
-      name: [null],
-      category: [null]
-    });
-  }
+  form = this.formBuilder.group({
+    name: [''],
+    category: ['']
+  });
 
   onSubmit() {
     this._coursesSvc.save(this.form.value)

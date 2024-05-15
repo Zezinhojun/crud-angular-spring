@@ -18,7 +18,7 @@ export class CoursesService {
       .pipe(tap(res => this.courses.set(res)))
   }
 
-  save(course: Course): Observable<Course> {
+  save(course: Partial<Course>) {
     return this._http
       .post<Course>(this._API, course)
       .pipe(take(1))
