@@ -9,9 +9,9 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { take } from 'rxjs';
 
-import { CategoryPipe } from '../shared/pipes/category.pipe';
-import { CoursesService } from './services/courses.service';
-
+import { CategoryPipe } from '../../../shared/pipes/category.pipe';
+import { CoursesListComponent } from '../../components/courses-list/courses-list.component';
+import { CoursesService } from '../../services/courses.service';
 
 @Component({
   selector: 'app-courses',
@@ -24,7 +24,8 @@ import { CoursesService } from './services/courses.service';
     MatProgressSpinnerModule,
     CategoryPipe,
     MatIconModule,
-    MatButtonModule
+    MatButtonModule,
+    CoursesListComponent
   ],
   templateUrl: './courses.component.html',
   styleUrl: './courses.component.scss'

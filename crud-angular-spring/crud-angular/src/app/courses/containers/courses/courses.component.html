@@ -1,0 +1,14 @@
+<mat-card>
+  <mat-toolbar color="primary">
+    <span>Cursos disponiveis</span>
+  </mat-toolbar>
+  <div class="mat-elevation-z8 column-flex">
+    @defer( when courses()){
+    <app-courses-list [courses]="courses()" (add)="onAdd()"></app-courses-list>
+    } @placeholder {
+    <div class="loading-spinner">
+      <mat-spinner></mat-spinner>
+    </div>
+    }
+  </div>
+</mat-card>

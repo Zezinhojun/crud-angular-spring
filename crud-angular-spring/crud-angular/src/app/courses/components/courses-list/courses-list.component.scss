@@ -1,0 +1,13 @@
+mat-table{
+  overflow: auto;
+  max-width: 600px;
+  mat-cell{
+    gap: 1rem
+  }
+  .action-column-header{
+    flex:0 0 7rem;
+  }
+  .action-column{
+    flex: 0 0 8.5rem;
+  }
+}
