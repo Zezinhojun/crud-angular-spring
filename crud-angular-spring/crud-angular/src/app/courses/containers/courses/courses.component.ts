@@ -12,6 +12,7 @@ import { take } from 'rxjs';
 import { CategoryPipe } from '../../../shared/pipes/category.pipe';
 import { CoursesListComponent } from '../../components/courses-list/courses-list.component';
 import { CoursesService } from '../../services/courses.service';
+import { Course } from '../../model/course';
 
 @Component({
   selector: 'app-courses',
@@ -44,5 +45,8 @@ export default class CoursesComponent {
 
   onAdd() {
     this.router.navigate(['new'], { relativeTo: this.route })
+  }
+  onEdit(course: Course) {
+    this.router.navigate(['edit', course._id], { relativeTo: this.route })
   }
 }

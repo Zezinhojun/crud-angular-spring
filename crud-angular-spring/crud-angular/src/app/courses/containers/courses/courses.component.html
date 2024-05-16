@@ -4,7 +4,7 @@
   </mat-toolbar>
   <div class="mat-elevation-z8 column-flex">
     @defer( when courses()){
-    <app-courses-list [courses]="courses()" (add)="onAdd()"></app-courses-list>
+    <app-courses-list [courses]="courses()" (add)="onAdd()" (edit)="onEdit($event)"></app-courses-list>
     } @placeholder {
     <div class="loading-spinner">
       <mat-spinner></mat-spinner>

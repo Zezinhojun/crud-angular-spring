@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
-import { Observable, take, tap } from 'rxjs';
+import { take, tap } from 'rxjs';
 
 import { Course } from '../model/course';
 
@@ -8,7 +8,7 @@ import { Course } from '../model/course';
   providedIn: 'root'
 })
 export class CoursesService {
-  private _http = inject(HttpClient)
+  private readonly _http = inject(HttpClient)
   private readonly _API = 'api/courses'
   public courses = signal<Course[]>([] as Course[])
 
@@ -18,9 +18,23 @@ export class CoursesService {
       .pipe(tap(res => this.courses.set(res)))
   }
 
+  loadById(id: string) {
+    return this._http
+      .get<Course>(`${this._API}/${id}`)
+  }
   save(course: Partial<Course>) {
+    if (course._id) this.update(course)
+    return this.create(course)
+  }
+
+  private create(course: Partial<Course>) {
     return this._http
       .post<Course>(this._API, course)
+      .pipe(take(1))
+  }
+  private update(course: Partial<Course>) {
+    return this._http
+      .put<Course>(`${this._API}/${course._id}`, course)
       .pipe(take(1))
   }
 }

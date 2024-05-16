@@ -16,7 +16,12 @@ import { Course } from '../../model/course';
 export class CoursesListComponent {
   @Input() courses: Course[] = []
   @Output() add = new EventEmitter(false)
+  @Output() edit = new EventEmitter(false)
   displayedColumns = ['name', 'category', 'actions']
+  onEdit(element: Course) {
+    this.edit.emit(element)
+
+  }
   onAdd() {
     this.add.emit(true)
   }
