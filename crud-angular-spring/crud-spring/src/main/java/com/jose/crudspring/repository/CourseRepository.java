@@ -8,6 +8,4 @@ import com.jose.crudspring.model.Course;
 @Repository
 public interface CourseRepository extends JpaRepository<Course, Long> {
 
-    void deleteAById(Long id);
-
 }
