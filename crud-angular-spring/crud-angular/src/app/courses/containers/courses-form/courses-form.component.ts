@@ -35,8 +35,8 @@ export default class CoursesFormComponent implements OnInit {
   private _snackBar = inject(MatSnackBar)
   private location = inject(Location)
   private route = inject(ActivatedRoute)
-  public courses = this._coursesSvc.courses
   private readonly formBuilder = inject(NonNullableFormBuilder)
+  public courses = this._coursesSvc.courses
 
   form = this.formBuilder.group({
     _id: [''],
@@ -61,12 +61,12 @@ export default class CoursesFormComponent implements OnInit {
       })
   }
 
-  onError() {
-    this._snackBar.open("Erro ao adicionar", '', { duration: 3000 });
+  private onError() {
+    this._snackBar.open("Erro ao adicionar", 'x', { duration: 3000 });
   }
 
-  onSucess() {
-    this._snackBar.open("Curso adicionado com sucesso", '', { duration: 3000 });
+  private onSucess() {
+    this._snackBar.open("Curso salvo com sucesso", 'x', { duration: 3000 });
     this.onCancel()
   }
   onCancel() {
