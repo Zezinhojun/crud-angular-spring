@@ -1,6 +1,6 @@
 mat-table{
   overflow: auto;
-  max-width: 600px;
+  width: min(50%, 600px);
   mat-cell{
     gap: 1rem
   }
