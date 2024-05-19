@@ -5,11 +5,11 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import com.jose.crudspring.dto.CourseDTO;
 import com.jose.crudspring.dto.mapper.CourseMapper;
 import com.jose.crudspring.exception.RecordNotFoundException;
+import com.jose.crudspring.model.Course;
 import com.jose.crudspring.repository.CourseRepository;
 
 import jakarta.validation.Valid;
@@ -45,11 +45,14 @@ public class CourseService {
     }
 
     public CourseDTO update(@NotNull @Positive Long id,
-            @RequestBody @Valid @NotNull CourseDTO course) {
+            @Valid @NotNull CourseDTO courseDTO) {
         return courseRepository.findById(id)
                 .map(recordFound -> {
-                    recordFound.setName(course.name());
-                    recordFound.setCategory(this.courseMapper.converterCategoyValue(course.category()));
+                    Course course = courseMapper.toEntity(courseDTO);
+                    recordFound.setName(courseDTO.name());
+                    recordFound.setCategory(this.courseMapper.converterCategoyValue(courseDTO.category()));
+                    recordFound.getLessons().clear();
+                    course.getLessons().forEach(recordFound.getLessons()::add);
                     return courseMapper.toDto(courseRepository.save(recordFound));
                 }).orElseThrow(() -> new RecordNotFoundException(id));
 
