@@ -8,9 +8,9 @@ import { CoursesService } from '../services/courses.service';
 export const CourseResolver: ResolveFn<Course> = (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => {
   const _coursesSvc = inject(CoursesService)
 
-  if (route.params && (route.paramMap.get('id')!)) {
+  if (route.params && (route.paramMap.get('id'))) {
     return _coursesSvc.loadById(route.paramMap.get('id')!);
   }
-  return of({ _id: '', name: '', category: '' })
+  return of({ _id: '', name: '', category: '', lessons: [] })
 };
 
